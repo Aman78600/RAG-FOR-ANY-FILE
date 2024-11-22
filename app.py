@@ -10,7 +10,6 @@ from langchain_google_genai import ChatGoogleGenerativeAI  # Updated import
 from langchain.prompts import PromptTemplate
 import tempfile
 import re
-from streamlit_chat import message as st_message
 # Configure page settings
 st.set_page_config(
     page_title="Document Q&A System",
