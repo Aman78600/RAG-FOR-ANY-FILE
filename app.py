@@ -211,10 +211,8 @@ def main():
                 # Add user message to chat history
                 st.session_state.messages.append({"role": "user", "content": prompt})
                 
-                # Generate response
-                if is_greeting(prompt):
-                    response = get_gemini_response(prompt, api_key=api_key)
-                elif st.session_state.vectordb:
+               
+                if st.session_state.vectordb:
                     results = st.session_state.vectordb.similarity_search_with_score(prompt, k=2)
                     
                     context = "\n".join([doc.page_content for doc, _ in results])
