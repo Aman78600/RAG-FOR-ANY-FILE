@@ -9,3 +9,4 @@ langchain-google-genai
 python-dotenv
 transformers
 torch
+langchain-community
