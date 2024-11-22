@@ -17,15 +17,6 @@ st.set_page_config(
     page_icon="🤖",
     layout="wide"
 )
-
-def is_greeting(text: str) -> bool:
-    """Check if the input is a greeting or general conversation"""
-    greetings = [
-        'hello', 'hi', 'hey', 'good morning', 'good afternoon', 
-        'good evening', 'how are you', 'what\'s up', 'greetings'
-    ]
-    return any(greeting in text.lower() for greeting in greetings)
-
 def read_pdf(file) -> str:
     """Extract text from PDF file"""
     pdf_reader = PyPDF2.PdfReader(file)
