@@ -1,4 +1,4 @@
-import streamlit as st
+tuimport streamlit as st
 import PyPDF2
 import docx
 import os
@@ -81,15 +81,20 @@ def create_vector_db(text: str) -> FAISS:
     vectorstore = FAISS.from_texts(texts, embeddings)
     return vectorstore
 
-def get_gemini_response(query: str, context: str = None, api_key: str = None) -> str:
-    """Get response from Gemini API"""
-       # Setup Gemini LLM
-    llm = ChatGoogleGenerativeAI(
+
+
+llm = ChatGoogleGenerativeAI(
         model="gemini-1.5-pro",
         temperature=0.1,
-        api_key=api_key
-    )
+        api_key="AIzaSyBgEWO0_xIuVPUWDQuQVvs8v3KtVHJY-7s"
+)
+
+
+def get_gemini_response(query: str, context: str = None) -> str:
+    """Get response from Gemini API"""
+       # Setup Gemini LLM
     
+
     if context:
         # Define the prompt template with clear sections for different query types
         template = """
@@ -150,16 +155,6 @@ def main():
     
     st.title("🤖 Intelligent Document Q&A System")
     
-    # Sidebar for API key
-    with st.sidebar:
-        st.header("Configuration")
-        api_key = st.text_input("Enter Gemini API Key:", type="password")
-        if st.button("Save API Key"):
-            if api_key:
-                st.success("API Key saved successfully!")
-            else:
-                st.error("Please enter an API Key")
-    
     # Main content area
     col1, col2 = st.columns([2, 3])
     
@@ -202,30 +197,30 @@ def main():
         
         # React to user input
         if prompt := st.chat_input("Ask me something..."):
-            if not api_key:
-                st.error("Please enter your Gemini API key in the sidebar.")
-            else:
-                # Display user message in chat message container
-                with st.chat_message("user"):
-                    st.markdown(prompt)
+            
+    
+            
+            # Display user message in chat message container
+            with st.chat_message("user"):
+                st.markdown(prompt)
                 # Add user message to chat history
-                st.session_state.messages.append({"role": "user", "content": prompt})
+            st.session_state.messages.append({"role": "user", "content": prompt})
                 
                
-                if st.session_state.vectordb:
-                    results = st.session_state.vectordb.similarity_search_with_score(prompt, k=2)
+            if st.session_state.vectordb:
+                results = st.session_state.vectordb.similarity_search_with_score(prompt, k=2)
                     
-                    context = "\n".join([doc.page_content for doc, _ in results])
-                    response = get_gemini_response(prompt, context=context, api_key=api_key)
+                context = "\n".join([doc.page_content for doc, _ in results])
+                response = get_gemini_response(prompt, context=context)
 
-                else:
-                    response = "Please upload a document first to ask document-related questions."
+            else:
+                response = "Please upload a document first to ask document-related questions."
 
                 # Display assistant response in chat message container
-                with st.chat_message("assistant"):
-                    st.markdown(response)
+            with st.chat_message("assistant"):
+                st.markdown(response)
                 # Add assistant response to chat history
-                st.session_state.messages.append({"role": "assistant", "content": response})
+            st.session_state.messages.append({"role": "assistant", "content": response})
 
 if __name__ == "__main__":
     main()
