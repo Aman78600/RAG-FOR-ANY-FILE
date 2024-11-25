@@ -86,7 +86,7 @@ def create_vector_db(text: str) -> FAISS:
 llm = ChatGoogleGenerativeAI(
         model="gemini-1.5-pro",
         temperature=0.1,
-        api_key="AIzaSyBgEWO0_xIuVPUWDQuQVvs8v3KtVHJY-7s"
+        api_key="AIzaSyCjEfE7uI88kJJifIzP66la4MPgO6h9TnE"
 )
 
 
