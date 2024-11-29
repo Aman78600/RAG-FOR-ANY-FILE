@@ -187,7 +187,7 @@ def main():
 
         # Initial welcome message
         if not st.session_state.messages:
-            boot = "السَّلاَمُ عَلَيْكُمْ وَرَحْمَةُ اللهِ وَبَرَكَاتُهُ\n\nWelcome! I'm here to help answer your questions.\nHow may I assist you today?"
+            boot = "Welcome! I'm here to help answer your questions.\nHow may I assist you today?"
             with st.chat_message("assistant"):
                 st.markdown(boot)
                 
